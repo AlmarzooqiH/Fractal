@@ -1,0 +1,473 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   complex_op.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/29 22:45:01 by h                 #+#    #+#             */
+/*   Updated: 2024/09/14 15:08:47 by hamad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fractol.h"
+
+void	init_complex(t_complex *p, double a, double bi)
+{
+	p->a = a;
+	p->b = bi;
+}
+
+/*
+	@brief		This function will compute (a + bi)^2
+	@param	zn	Complex number
+*/
+void	square_complex(t_complex *zn)
+{
+	double	a;
+	double	b;
+
+	a = zn->a;
+	b = zn->b;
+	zn->a = pow(a, 2) - pow(b, 2);
+	zn->b = 2 * a * b;
+}
+
+/*
+	@brief	This function will add two complex numbers to each other.
+	@param	zn	Complex number
+	@param	c	The constant complex number added in the mandelbrot equation.
+*/
+void	add_complex(t_complex *zn, t_complex c)
+{
+	zn->b += c.b;
+	zn->a += c.a;
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractal.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/29 13:45:52 by h                 #+#    #+#             */
+/*   Updated: 2024/09/14 15:52:44 by hamad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fractol.h"
+
+int	has_escaped(t_complex *zn)
+{
+    return (zn->a * zn->a + zn->b * zn->b > 4);
+}
+
+/*
+    @brief	This function will draw the mandelbrot fractal.
+
+	@param	p	The p pointer holds all of the program data that will be used.
+    @var    	ipp Iteration per pixel.
+*/
+void	mandelbrot(t_prog *p)
+{
+	int	ipp;
+
+	init_complex(&p->c, getx(p), gety(p));
+	init_complex(&p->zn, 0, 0);
+	ipp = 0;
+	while (ipp < p->cycles)
+	{
+		square_complex(&p->zn);
+		add_complex(&p->zn, p->c);
+		if (has_escaped(&p->zn))
+			break ;
+		ipp++;
+	}
+	if (ipp == p->cycles)
+		p->fc = BLACK;
+	else
+		p->fc = BLACK + (ipp * ROYALE_BLUE);
+	doi(p);		
+}
+
+void	julia(t_prog *p)
+{
+	int	ipp;
+
+	init_complex(&p->zn, getx(p), gety(p));
+	ipp = 0;
+	while (ipp < p->cycles)
+	{
+		square_complex(&p->zn);
+		add_complex(&p->zn, p->c);
+		if (has_escaped(&p->zn))
+			break ;
+		ipp++;
+	}
+	if (ipp == p->cycles)
+		p->fc = BLACK;
+	else
+		p->fc = (BLACK) + (ipp * ROYALE_BLUE);
+	doi(p);		
+}
+
+void	fractal(t_prog *p)
+{
+	p->y = 0;
+	while (p->y != HEIGHT)
+	{
+		p->x = 0;
+		while (p->x != WIDTH)
+		{
+			if (p->fractal == 'm')
+				mandelbrot(p);
+			else if (p->fractal == 'j')
+				julia(p);
+			p->x++;
+		}
+		p->y++;
+	}
+	mlx_put_image_to_window(p->mlx, p->win, p->img, 0, 0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/28 18:30:15 by h                 #+#    #+#             */
+/*   Updated: 2024/09/14 15:54:01 by hamad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fractol.h"
+
+int	close_window(void *param)
+{
+	t_prog	*p;
+
+	p = (t_prog *) param;
+	mlx_destroy_window(p->mlx, p->win);
+	exit(0);
+}
+
+void	init(t_prog *p)
+{
+	p->mlx = mlx_init();
+	if (!p->mlx)
+	{
+		ft_printf("%s\n", SOMETHING_WENT_WRONG);
+		exit(1);
+	}
+	p->win = mlx_new_window(p->mlx, WIDTH, HEIGHT, FRACTOL);
+	if (!p->win)
+	{
+		ft_printf("%s\n", SOMETHING_WENT_WRONG);
+		exit(1);
+	}
+	p->img = mlx_new_image(p->mlx, WIDTH, HEIGHT);
+	if (!p->img)
+	{
+		mlx_destroy_window(p->mlx, p->win);
+		ft_printf("%s\n", SOMETHING_WENT_WRONG);
+		exit(1);
+	}
+	p->imgd = mlx_get_data_addr(p->img, &p->bpp, &p->sl, &p->edn);
+	p->cycles = 50;
+	p->fc = BLACK;
+}
+
+int	main(int ac, char **av)
+{
+	t_prog	p;
+
+	check_args(ac, av);
+	init(&p);
+	hook(&p);
+	check_fractal(&p, ac, av);
+	if (p.fractal == 'j')
+	{
+		get_c(&p, ac, av);
+		p.cycles = 2000;
+	}
+	fractal(&p);
+	mlx_loop(p.mlx);
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/10 15:08:59 by hamad             #+#    #+#             */
+/*   Updated: 2024/09/14 15:12:21 by hamad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fractol.h"
+
+void	check_fractal(t_prog *p, int ac, char **av)
+{
+	if (ft_strcmp(av[1], MANDELBROT))
+		p->fractal = 'm';
+	else if (ft_strcmp(av[1], JULIA))
+		p->fractal = 'j';
+	else
+	{
+		ft_printf("%s", WRONG_FRACTALS);
+		mlx_destroy_image(p->mlx, p->img);
+		mlx_destroy_window(p->mlx, p->win);
+		exit(1);
+	}
+}
+
+/*
+	@brief	Draw on image
+	@param	p	The program data.
+*/
+void	doi(t_prog *p)
+{
+	int	i;
+	int	j;
+	int	offset;
+
+	offset = (p->y * p->sl) + (p->x * (p->bpp / 8));
+	*(int *)(p->imgd + offset) = p->fc;
+}
+
+double	getx(t_prog *p)
+{
+	return (RNX + ((double)p->x / (double)WIDTH) * (RPX - RNX));
+}
+
+double	gety(t_prog *p)
+{
+	return (INY + ((double)p->y / (double)HEIGHT) * (IPY - INY));
+}/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/05 11:44:28 by hamad             #+#    #+#             */
+/*   Updated: 2024/09/14 15:52:24 by hamad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fractol.h"
+
+void	check_args(int ac, char **av)
+{
+	// if (ac == 1 || ac > 4 || !av || av[1][0] == '\0')
+	// {
+	// 	ft_printf("%s", INPUT_ERROR);
+	// 	exit(1);
+	// }
+	//Finish parsing later.
+}
+
+int	key_hook(int keycode, void *param)
+{
+	t_prog	*p;
+
+	p = (t_prog *) param;
+	if (keycode == ESC)
+		close_window(param);
+	else if (keycode == LEFT)
+		ft_printf("Left arrow was pressed!\n");
+	else if (keycode == UP)
+		ft_printf("up arrow was pressed!\n");
+	else if (keycode == RIGHT)
+		ft_printf("Right arrow was pressed!\n");
+	else if (keycode == DOWN)
+		ft_printf("Down arrow was pressed!\n");
+	else if (keycode == MINUS)
+		p->cycles -= 10;
+	else if (keycode == PLUS)
+		p->cycles += 10;
+	fractal(p);
+	return (0);
+}
+
+int	mouse_hook(int button, int x, int y, void *param)
+{
+	ft_printf("button: %d\tx: %d\ty: %d\n", button, x, y);
+}
+
+void	hook(t_prog *p)
+{
+	mlx_key_hook(p->win, key_hook, (void *)p);
+	mlx_hook(p->win, 17, 0, close_window, (void *)p);
+	mlx_mouse_hook(p->win, mouse_hook, (void *)p);
+}
+
+void	get_c(t_prog *p, int ac, char **av)
+{
+	int	i;
+
+	i = 2;
+	p->c.a = ft_atod(av[i]);
+	p->c.b = ft_atod(av[i + 1]);
+}/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/28 18:30:39 by h                 #+#    #+#             */
+/*   Updated: 2024/09/14 15:53:52 by hamad            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/*                                                             
+ mmmmmmmm  mmmmmm       mm        mmmm   mmmmmmmm    mmmm    mm       
+ ##""""""  ##""""##    ####     ##""""#  """##"""   ##""##   ##       
+ ##        ##    ##    ####    ##"          ##     ##    ##  ##       
+ #######   #######    ##  ##   ##           ##     ##    ##  ##       
+ ##        ##  "##m   ######   ##m          ##     ##    ##  ##       
+ ##        ##    ##  m##  ##m   ##mmmm#     ##      ##mm##   ##mmmmmm 
+ ""        ""    """ ""    ""     """"      ""       """"    """""""" 
+*/
+
+/*
+Mandelbrot set fractal equation:
+
+Z(n + 1) = (Z(n))^2 + C
+Zn: Complex Number
+C: Complex Number
+Complex Number: a + bi
+
+(Z(n))^2 = (a + bi)^2 = a^2 + 2abi - b^2
+Final Equation: (a^2 +2abi - b^2) + C
+But remmember Mandelbrot set starts at (Z(n))^2 = 0
+*/
+
+#ifndef FRACTOL_H
+# define FRACTOL_H
+
+# include <math.h>
+# include "libft/libft.h"
+
+# ifdef __linux__
+#  include "minilibx-linux/mlx.h"
+#  define ESC 65307
+#  define LEFT 65361
+#  define UP 65362
+#  define RIGHT 65363
+#  define DOWN 65364
+#  define MINUS 45
+#  define PLUS 61
+# endif
+# ifdef APPLE
+#  include "minilibx/mlx.h"
+#  define ESC 27
+#  define LEFT 37
+#  define UP 38
+#  define RIGHT 39
+#  define DOWN 40
+#  define MINUS 189
+#  define PLUS 187
+# endif
+
+//Macros
+# define FRACTOL "Fractol\0"
+# define MANDELBROT "mandelbrot"
+# define JULIA "julia\0"
+# define WIDTH 800
+# define HEIGHT 800
+# define RPX 2
+# define RNX -2
+# define IPY 2.5
+# define INY -2.5
+# define RED 0xFF0000
+# define GREEN 0x00BF00
+# define BLUE 0x0000FF
+# define BLACK 0x000000
+# define ROYALE_BLUE 0x4169E1
+# define ORANGE 0xc2772d
+# define YELLOW 0xFFFF00
+
+//Error Macros
+# define INPUT_ERROR "Input Error\n\0"
+# define SOMETHING_WENT_WRONG "Something went wrong\n\0"
+# define WRONG_FRACTALS "Wrong fractal name chose\nMandelbrot, julia\n\0"
+# define JULIA_WRONG_FORMAT "Wrong formatting of the julia set\n\0"
+
+//Structs
+/*
+	@brief		This struct represents a complex number.
+	@var	a	Represents the real part of the complex number.
+	@var	b	Represents the imaginary part of the complex number.
+*/
+typedef struct s_complex
+{
+	double	a;
+	double	b;
+}	t_complex;
+
+/*
+	@brief 			This struct holds most of the program requirements.
+	@var	mlx		This holds the mlx pointer.
+	@var	win		This holds the window pointer.
+	@var	img		This holds the image pointer.
+	@var	imgd	This holds the image pixel data which will be used to mod-
+					-ify the pixel values later on.
+
+	@var	fractal	This will hold the type of fractal we will draw.			
+	@var	x		The x position on the image.
+	@var	y		The y position on the image.
+	@var	bpp		Bits per pixel holds the number of bits per pixel.
+	@var	sl		Size line will hold the number of bytes per line.
+
+	@var	edn		The endian will store a value 1(Big endian) or 0 (Small e-
+					-ndian) which tell's us how the data is stored in memory.
+
+	@var	cycles	This will be the number of times we compute each point to
+					ensure the accuracy of the fractal.
+
+	@var	fc		This will hold the current point color of the fractal.	
+	@var	zn		A complex number.
+	@var	c		A complex number.
+*/
+typedef struct s_prog
+{
+	void		*mlx;
+	void		*win;
+	void		*img;
+	char		*imgd;
+	char		fractal;
+	int			x;
+	int			y;
+	int			bpp;
+	int			sl;
+	int			edn;
+	int			cycles;
+	int			fc;
+	t_complex	zn;
+	t_complex	c;
+}	t_prog;
+
+//Function Prototypes
+int				close_window(void *param);
+int				key_hook(int keycode, void *param);
+int				mouse_hook(int button, int x, int y, void *param);
+int				has_escaped(t_complex *zn);
+double			getx(t_prog *p);
+double			gety(t_prog *p);
+void			hook(t_prog *p);
+void			mandelbrot(t_prog *p);
+void			julia(t_prog *p);
+void			fractal(t_prog *p);
+void			init_complex(t_complex *p, double a, double bi);
+void			square_complex(t_complex *zn);
+void			add_complex(t_complex *zn, t_complex c);
+void			check_args(int ac, char **av);
+void			check_fractal(t_prog *p, int ac, char **av);
+void			doi(t_prog *p);
+void			get_c(t_prog *p, int ac, char **av);
+#endif
