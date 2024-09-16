@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:30:39 by h                 #+#    #+#             */
-/*   Updated: 2024/09/15 17:50:49 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/16 17:37:31 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ typedef struct s_complex
 	@var	zoom	This will hold the zoom in/out factor of the fractal.
 	@var	zoom_x	This will hold the X position of the mouse pointer.
 	@var	zoom_y	This will hold the Y position of the mouse pointer.
+	@var	move_x	This will be used to move around using the key arrows;
+	@var	move_y	This will be used to move around using the key arrows;
 	@var	zn		A complex number.
 	@var	c		A complex number.
 */
@@ -142,12 +144,14 @@ typedef struct s_prog
 	double		zoom;
 	double		zoom_x;
 	double		zoom_y;
+	double		move_x;
+	double		move_y;
 	t_complex	zn;
 	t_complex	c;
 }	t_prog;
 
 //Function Prototypes
-int				close_window(void *param);
+int				close_program(void *param);
 int				key_hook(int keycode, void *param);
 int				mouse_hook(int button, int x, int y, void *param);
 int				has_escaped(t_complex *zn);

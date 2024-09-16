@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:08:59 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/15 18:00:38 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/16 17:53:11 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,13 @@ void	doi(t_prog *p)
 	offset = (p->y * p->sl) + (p->x * (p->bpp / 8));
 	*(int *)(p->imgd + offset) = p->fc;
 }
-//Figure out how to zoomin to the mouse pointer.
+//Figure out how to zoom in/out to the mouse pointer shit.
 double	getx(t_prog *p)
 {
-	double	x;
-	double	mouse_x;
-
-	mouse_x = (p->zoom * WIDTH);
-	x = ((RNX + mouse_x) + ((double)p->x / (double)WIDTH) * (RPX - RNX));
-	return (x / mouse_x);
+	return (RNX + ((double)p->x / (double)WIDTH) * (RPX - RNX) / p->zoom);
 }
 
 double	gety(t_prog *p)
 {
-	double	y;
-	double	mouse_y;
-
-	mouse_y = (p->zoom * HEIGHT) / p->zoom;
-	y = ((INY + mouse_y) + ((double)p->y / (double)HEIGHT) * (IPY - INY)) / p->zoom;
-	return (y);
+	return (INY + ((double)p->y / (double)HEIGHT) * (IPY - INY)) / p->zoom;
 }

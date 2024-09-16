@@ -6,11 +6,12 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 11:44:28 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/15 17:49:10 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/16 17:52:59 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include <stdio.h>
 
 void	check_args(int ac, char **av)
 {
@@ -28,15 +29,15 @@ int	key_hook(int keycode, void *param)
 
 	p = (t_prog *) param;
 	if (keycode == ESC)
-		close_window(param);
+		close_program(param);
 	else if (keycode == LEFT)
-		ft_printf("Left arrow was pressed!\n");
+		p->move_x -= 1.5;
 	else if (keycode == UP)
-		ft_printf("up arrow was pressed!\n");
+		p->move_y += 1.5;
 	else if (keycode == RIGHT)
-		ft_printf("Right arrow was pressed!\n");
+		p->move_x += 1.5;
 	else if (keycode == DOWN)
-		ft_printf("Down arrow was pressed!\n");
+		p->move_y -= 1.5;
 	else if (keycode == MINUS)
 		p->cycles -= 10;
 	else if (keycode == PLUS)
@@ -50,13 +51,13 @@ int	mouse_hook(int button, int x, int y, void *param)
 	t_prog *p;
 
 	p = (t_prog *)param;
-	p->zoom_x = x;
-	p->zoom_y = y;
 	if (button == ZOOMIN)
-		p->zoom *= 1.5;
-
+		p->zoom *= 1.5;	
 	else if (button == ZOOMOUT)
 		p->zoom /= 1.5;
+	// printf("x: %.14f\t y: %.14f\n", p->zoom_x, p->zoom_y);
+	p->zoom_x = ((double)x / (double)WIDTH) * (RPX - RNX);
+	p->zoom_y = ((double)y / (double)HEIGHT) * (IPY - INY);
 	fractal(p);
 		
 }
@@ -64,7 +65,7 @@ int	mouse_hook(int button, int x, int y, void *param)
 void	hook(t_prog *p)
 {
 	mlx_key_hook(p->win, key_hook, (void *)p);
-	mlx_hook(p->win, 17, 0, close_window, (void *)p);
+	mlx_hook(p->win, 17, 0, close_program, (void *)p);
 	mlx_mouse_hook(p->win, mouse_hook, (void *)p);
 }
 

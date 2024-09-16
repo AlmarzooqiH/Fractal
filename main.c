@@ -6,13 +6,13 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:30:15 by h                 #+#    #+#             */
-/*   Updated: 2024/09/15 12:40:06 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/16 17:06:02 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	close_window(void *param)
+int	close_program(void *param)
 {
 	t_prog	*p;
 
@@ -46,21 +46,20 @@ void	init(t_prog *p)
 	p->cycles = 50;
 	p->fc = BLACK;
 	p->zoom = 1;
+	p->move_x = 0;
+	p->move_y = 0;
 }
 
 int	main(int ac, char **av)
 {
 	t_prog	p;
-
 	check_args(ac, av);
+
 	init(&p);
 	hook(&p);
 	check_fractal(&p, ac, av);
 	if (p.fractal == 'j')
-	{
 		get_c(&p, ac, av);
-		p.cycles = 100;
-	}
 	fractal(&p);
 	mlx_loop(p.mlx);
 	return (0);
