@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:08:59 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/16 17:53:11 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/17 11:14:07 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	doi(t_prog *p)
 //Figure out how to zoom in/out to the mouse pointer shit.
 double	getx(t_prog *p)
 {
-	return (RNX + ((double)p->x / (double)WIDTH) * (RPX - RNX) / p->zoom);
+	return (RNX + ((double)p->x / (double)WIDTH) * (RPX - RNX)) / p->zoom;
 }
 
 double	gety(t_prog *p)

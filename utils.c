@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 11:44:28 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/16 17:52:59 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/17 11:13:02 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ int	mouse_hook(int button, int x, int y, void *param)
 		p->zoom *= 1.5;	
 	else if (button == ZOOMOUT)
 		p->zoom /= 1.5;
-	// printf("x: %.14f\t y: %.14f\n", p->zoom_x, p->zoom_y);
-	p->zoom_x = ((double)x / (double)WIDTH) * (RPX - RNX);
-	p->zoom_y = ((double)y / (double)HEIGHT) * (IPY - INY);
+	x -= WIDTH / 2;
+	y -= HEIGHT / 2;
+	p->zoom_x = (((double)x / (double)WIDTH) * (RPX - RNX));
+	p->zoom_y = (((double)y / (double)HEIGHT) * (IPY - INY));
+	printf("x: %.14f\t y: %.14f\n", p->zoom_x, p->zoom_y);
 	fractal(p);
 		
 }
