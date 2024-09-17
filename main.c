@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:30:15 by h                 #+#    #+#             */
-/*   Updated: 2024/09/16 17:06:02 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/17 22:54:46 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@ int	close_program(void *param)
 	p = (t_prog *) param;
 	mlx_destroy_window(p->mlx, p->win);
 	exit(0);
+}
+
+void	init_2(t_prog *p)
+{
+	p->fc = BLACK;
+	p->zoom = 1;
+	p->move_x = 0;
+	p->move_y = 0;
+	p->range_x = 0.0 + (RPX - RNX);
+	p->range_y = 0.0 + (IPY - INY);
 }
 
 void	init(t_prog *p)
@@ -44,10 +54,7 @@ void	init(t_prog *p)
 	}
 	p->imgd = mlx_get_data_addr(p->img, &p->bpp, &p->sl, &p->edn);
 	p->cycles = 50;
-	p->fc = BLACK;
-	p->zoom = 1;
-	p->move_x = 0;
-	p->move_y = 0;
+	init_2(p);
 }
 
 int	main(int ac, char **av)

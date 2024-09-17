@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:30:39 by h                 #+#    #+#             */
-/*   Updated: 2024/09/17 10:21:10 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/17 22:59:57 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ But remmember Mandelbrot set starts at (Z(n))^2 = 0
 #  define PLUS 61
 #  define ZOOMIN 4
 #  define ZOOMOUT 5
+#  define R 114
+#  define ONE 49
+#  define TWO 50
+#  define THREE 51
+#  define FOUR 52
 # endif
 # ifdef APPLE
 #  include "minilibx/mlx.h"
@@ -124,6 +129,8 @@ typedef struct s_complex
 	@var	zoom_y	This will hold the Y position of the mouse pointer.
 	@var	move_x	This will be used to move around using the key arrows;
 	@var	move_y	This will be used to move around using the key arrows;
+	@var	range_x	This will hold the range of the real plane RPX - RNX.
+	@var	range_y	This will hold the range of the complex plane IPY - INX.
 	@var	zn		A complex number.
 	@var	c		A complex number.
 */
@@ -146,6 +153,8 @@ typedef struct s_prog
 	double		zoom_y;
 	double		move_x;
 	double		move_y;
+	double		range_x;
+	double		range_y;
 	t_complex	zn;
 	t_complex	c;
 }	t_prog;
@@ -154,6 +163,8 @@ typedef struct s_prog
 int				close_program(void *param);
 int				key_hook(int keycode, void *param);
 int				mouse_hook(int button, int x, int y, void *param);
+void			init(t_prog *p);
+void			init_2(t_prog *p);
 int				has_escaped(t_complex *zn);
 double			getx(t_prog *p);
 double			gety(t_prog *p);

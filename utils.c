@@ -6,12 +6,11 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 11:44:28 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/17 11:13:02 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/17 23:00:23 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <stdio.h>
 
 void	check_args(int ac, char **av)
 {
@@ -31,13 +30,13 @@ int	key_hook(int keycode, void *param)
 	if (keycode == ESC)
 		close_program(param);
 	else if (keycode == LEFT)
-		p->move_x -= 1.5;
+		p->move_x -= 1.5 / p->zoom;
 	else if (keycode == UP)
-		p->move_y += 1.5;
+		p->move_y -= 1.5 / p->zoom;
 	else if (keycode == RIGHT)
-		p->move_x += 1.5;
+		p->move_x += 1.5 / p->zoom;
 	else if (keycode == DOWN)
-		p->move_y -= 1.5;
+		p->move_y += 1.5 / p->zoom;
 	else if (keycode == MINUS)
 		p->cycles -= 10;
 	else if (keycode == PLUS)
@@ -48,20 +47,20 @@ int	key_hook(int keycode, void *param)
 
 int	mouse_hook(int button, int x, int y, void *param)
 {
-	t_prog *p;
+	t_prog	*p;
+	double	mouse_re;
+	double	mouse_im;
 
 	p = (t_prog *)param;
+	mouse_re = p->zoom_x + (x - WIDTH / 2) * (p->range_x / (double)WIDTH) / p->zoom;
+	mouse_im = p->zoom_y + (y - HEIGHT / 2) * (p->range_y / (double)HEIGHT) / p->zoom;
 	if (button == ZOOMIN)
-		p->zoom *= 1.5;	
+		p->zoom *= 1.5;
 	else if (button == ZOOMOUT)
 		p->zoom /= 1.5;
-	x -= WIDTH / 2;
-	y -= HEIGHT / 2;
-	p->zoom_x = (((double)x / (double)WIDTH) * (RPX - RNX));
-	p->zoom_y = (((double)y / (double)HEIGHT) * (IPY - INY));
-	printf("x: %.14f\t y: %.14f\n", p->zoom_x, p->zoom_y);
+	p->zoom_x = mouse_re - (x - WIDTH / 2) * (p->range_x / (double)WIDTH) / p->zoom;
+	p->zoom_y = mouse_im - (y - HEIGHT / 2) * (p->range_y / (double)HEIGHT) / p->zoom;
 	fractal(p);
-		
 }
 
 void	hook(t_prog *p)
