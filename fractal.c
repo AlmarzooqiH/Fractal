@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:45:52 by h                 #+#    #+#             */
-/*   Updated: 2024/09/16 17:25:12 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/17 23:59:14 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	has_escaped(t_complex *zn)
 {
-    return (zn->a * zn->a + zn->b * zn->b > 4);
+	return (zn->a * zn->a + zn->b * zn->b > 4);
 }
 
 /*
@@ -39,10 +39,10 @@ void	mandelbrot(t_prog *p)
 		ipp++;
 	}
 	if (ipp == p->cycles)
-		p->fc = BLACK;
+		p->fc = p->fpc;
 	else
-		p->fc = BLACK + (ipp * ROYALE_BLUE);
-	doi(p);		
+		p->fc = p->fpc + (ipp * p->fsc);
+	doi(p);
 }
 
 void	julia(t_prog *p)
@@ -60,10 +60,10 @@ void	julia(t_prog *p)
 		ipp++;
 	}
 	if (ipp == p->cycles)
-		p->fc = BLACK;
+		p->fc = p->fpc;
 	else
-		p->fc = (BLACK) + (ipp * ROYALE_BLUE);
-	doi(p);		
+		p->fc = p->fpc + (ipp * p->fsc);
+	doi(p);
 }
 
 void	fractal(t_prog *p)

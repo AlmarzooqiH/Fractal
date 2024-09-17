@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:30:39 by h                 #+#    #+#             */
-/*   Updated: 2024/09/17 22:59:57 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/17 23:52:10 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ But remmember Mandelbrot set starts at (Z(n))^2 = 0
 #  define TWO 50
 #  define THREE 51
 #  define FOUR 52
+#  define FIVE 53
 # endif
 # ifdef APPLE
 #  include "minilibx/mlx.h"
@@ -77,14 +78,16 @@ But remmember Mandelbrot set starts at (Z(n))^2 = 0
 # define RNX -2
 # define IPY 2.5
 # define INY -2.5
-# define RED 0xFF0000
-# define GREEN 0x00BF00
-# define BLUE 0x0000FF
 # define BLACK 0x000000
+# define WHITE 0xFFFFFF
 # define ROYALE_BLUE 0x4169E1
-# define ORANGE 0xc2772d
-# define YELLOW 0xFFFF00
-
+# define LIGHT_PURPLE 0xD8BFD8
+# define LIME 0x00ed33
+# define DARK_GREEN  0x006400
+# define GOLD 0xFFD700
+# define DARK_ORANGE 0xFF8C00
+# define LIGHT_SKY_BLUE 0x87CEFA
+# define CRIMSON 0xDC143C
 //Error Macros
 # define INPUT_ERROR "Input Error\n\0"
 # define SOMETHING_WENT_WRONG "Something went wrong\n\0"
@@ -123,7 +126,11 @@ typedef struct s_complex
 	@var	cycles	This will be the number of times we compute each point to
 					ensure the accuracy of the fractal.
 
-	@var	fc		This will hold the current point color of the fractal.
+	@var	fc		This will store the color value of the calculated color
+					from fpc anf fsc.
+
+	@var	fpc		This will hold the primary color of the fractal.
+	@var	fsc		This will hold the secondary color of the fractal.
 	@var	zoom	This will hold the zoom in/out factor of the fractal.
 	@var	zoom_x	This will hold the X position of the mouse pointer.
 	@var	zoom_y	This will hold the Y position of the mouse pointer.
@@ -148,6 +155,8 @@ typedef struct s_prog
 	int			edn;
 	int			cycles;
 	int			fc;
+	int			fpc;
+	int			fsc;
 	double		zoom;
 	double		zoom_x;
 	double		zoom_y;
@@ -175,8 +184,10 @@ void			fractal(t_prog *p);
 void			init_complex(t_complex *p, double a, double bi);
 void			square_complex(t_complex *zn);
 void			add_complex(t_complex *zn, t_complex c);
+void			change_color(int keycode, t_prog *p);
 void			check_args(int ac, char **av);
 void			check_fractal(t_prog *p, int ac, char **av);
 void			doi(t_prog *p);
 void			get_c(t_prog *p, int ac, char **av);
+void			reset_fractal(t_prog *p);
 #endif

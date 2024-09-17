@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 11:44:28 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/17 23:00:23 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/17 23:56:30 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ int	key_hook(int keycode, void *param)
 		p->cycles -= 10;
 	else if (keycode == PLUS)
 		p->cycles += 10;
+	else if (keycode == ONE || keycode == TWO || keycode == THREE
+		|| keycode == FOUR || keycode == FIVE)
+		change_color(keycode, p);
+	else if (keycode == R)
+		reset_fractal(p);
 	fractal(p);
 	return (0);
 }
@@ -52,14 +57,18 @@ int	mouse_hook(int button, int x, int y, void *param)
 	double	mouse_im;
 
 	p = (t_prog *)param;
-	mouse_re = p->zoom_x + (x - WIDTH / 2) * (p->range_x / (double)WIDTH) / p->zoom;
-	mouse_im = p->zoom_y + (y - HEIGHT / 2) * (p->range_y / (double)HEIGHT) / p->zoom;
+	mouse_re = p->zoom_x + (x - WIDTH / 2) * (p->range_x / (double)WIDTH)
+		/ p->zoom;
+	mouse_im = p->zoom_y + (y - HEIGHT / 2) * (p->range_y / (double)HEIGHT)
+		/ p->zoom;
 	if (button == ZOOMIN)
 		p->zoom *= 1.5;
 	else if (button == ZOOMOUT)
 		p->zoom /= 1.5;
-	p->zoom_x = mouse_re - (x - WIDTH / 2) * (p->range_x / (double)WIDTH) / p->zoom;
-	p->zoom_y = mouse_im - (y - HEIGHT / 2) * (p->range_y / (double)HEIGHT) / p->zoom;
+	p->zoom_x = mouse_re - (x - WIDTH / 2) * (p->range_x / (double)WIDTH)
+		/ p->zoom;
+	p->zoom_y = mouse_im - (y - HEIGHT / 2) * (p->range_y / (double)HEIGHT)
+		/ p->zoom;
 	fractal(p);
 }
 

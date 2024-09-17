@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:30:15 by h                 #+#    #+#             */
-/*   Updated: 2024/09/17 22:54:46 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/17 23:59:37 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	close_program(void *param)
 void	init_2(t_prog *p)
 {
 	p->fc = BLACK;
+	p->fpc = BLACK;
+	p->fsc = ROYALE_BLUE;
 	p->zoom = 1;
 	p->move_x = 0;
 	p->move_y = 0;
@@ -60,8 +62,8 @@ void	init(t_prog *p)
 int	main(int ac, char **av)
 {
 	t_prog	p;
-	check_args(ac, av);
 
+	check_args(ac, av);
 	init(&p);
 	hook(&p);
 	check_fractal(&p, ac, av);

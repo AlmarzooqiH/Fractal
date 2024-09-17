@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:08:59 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/17 22:54:16 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/17 23:58:20 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,49 @@ void	check_fractal(t_prog *p, int ac, char **av)
 */
 void	doi(t_prog *p)
 {
-	int	i;
-	int	j;
 	int	offset;
 
 	offset = (p->y * p->sl) + (p->x * (p->bpp / 8));
 	*(int *)(p->imgd + offset) = p->fc;
 }
-//Figure out how to zoomin to the mouse pointer.
+
 double	getx(t_prog *p)
 {
-    return (p->zoom_x + (p->x - WIDTH / 2) * (p->range_x / (double)WIDTH) / p->zoom) + p->move_x;
+	return ((p->zoom_x + (p->x - WIDTH / 2) * (p->range_x / (double)WIDTH)
+			/ p->zoom) + p->move_x);
 }
 
 double	gety(t_prog *p)
 {
-    return (p->zoom_y + (p->y - HEIGHT / 2) * (p->range_y / (double)HEIGHT) / p->zoom) + p->move_y;
+	return ((p->zoom_y + (p->y - HEIGHT / 2) * (p->range_y / (double)HEIGHT)
+			/ p->zoom) + p->move_y);
+}
+
+void	change_color(int keycode, t_prog *p)
+{
+	if (keycode == ONE)
+	{
+		p->fpc = BLACK;
+		p->fsc = ROYALE_BLUE;
+	}
+	else if (keycode == TWO)
+	{
+		p->fpc = BLACK;
+		p->fsc = WHITE;
+	}
+	else if (keycode == THREE)
+	{
+		p->fpc = BLACK;
+		p->fsc = LIGHT_PURPLE;
+	}
+	else if (keycode == FOUR)
+	{
+		p->fpc = DARK_GREEN;
+		p->fsc = GOLD;
+	}
+	else if (keycode == FIVE)
+	{
+		p->fpc = CRIMSON;
+		p->fsc = GOLD;
+	}
 }

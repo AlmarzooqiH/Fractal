@@ -1,7 +1,7 @@
 COMPILER = cc
 FLAGS = -Wall -Werror -Wextra
 PROGRAM_NAME = fractol
-MANDATORY = main.c fractal.c complex_op.c utils.c utils2.c
+MANDATORY = main.c fractal.c complex_op.c utils.c utils2.c utils3.c
 MANDATORY_OBJECTS = $(MANDATORY:.c=.o)
 LIBFT_A = libft/libft.a
 
