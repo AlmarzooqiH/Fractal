@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 11:44:28 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/18 15:05:42 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/18 17:49:58 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,10 @@ void	get_c(t_prog *p, int ac, char **av)
 {
 	int	i;
 
+	check_c(p, ac, av);
 	i = 2;
 	p->c.a = ft_atod(av[i]);
 	p->c.b = ft_atod(av[i + 1]);
+	if (p->c.a < RNX || p->c.a > RPX || p->c.b < INY || p->c.b > IPY)
+		exit_prog(p, JULIA_WRONG_FORMAT, 1);
 }

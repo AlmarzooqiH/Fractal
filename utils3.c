@@ -6,12 +6,23 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 23:50:11 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/18 16:12:52 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/18 17:53:11 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <stdio.h>
+
+void	exit_prog(t_prog *p, char *reason, int status)
+{
+	if (!reason || reason == NULL)
+	{
+		mlx_destroy_window(p->mlx, p->win);
+		exit(status);
+	}
+	mlx_destroy_window(p->mlx, p->win);
+	ft_printf("%s", reason);
+	exit(status);
+}
 
 void	reset_fractal(t_prog *p)
 {
@@ -40,4 +51,33 @@ void	change_or_reset_fractal(int keycode, t_prog *p)
 		p->fractal = 'b';
 	else if (keycode == T)
 		p->fractal = 't';
+}
+
+void	check_c(t_prog *p, int ac, char **av)
+{
+	int	i;
+	int	j;
+
+	if (ac == 3)
+		exit_prog(p, JULIA_WRONG_FORMAT, 1);
+	i = 2;
+	if (!av[i] ||!av[i][0] || av[i][0] == '\0')
+		exit_prog(p, JULIA_WRONG_FORMAT, 1);
+	j = 0;
+	while (av[i][j] != '\0')
+	{
+		if (ft_isalpha(av[i][j] || ft_isspace(av[i][j])))
+			exit_prog(p, JULIA_WRONG_FORMAT, 1);
+		j++;
+	}
+	i++;
+	j = 0;
+	while (av[i][j] != '\0')
+	{
+		if (av[i][j] == 'i')
+			break ;
+		if (ft_isalpha(av[i][j] || ft_isspace(av[i][j])))
+			exit_prog(p, JULIA_WRONG_FORMAT, 1);
+		j++;
+	}
 }

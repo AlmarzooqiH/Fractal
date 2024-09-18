@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:30:15 by h                 #+#    #+#             */
-/*   Updated: 2024/09/18 11:11:28 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/18 17:40:10 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ int	close_program(void *param)
 	t_prog	*p;
 
 	p = (t_prog *) param;
-	mlx_destroy_window(p->mlx, p->win);
-	exit(0);
+	exit_prog(p, NULL, 0);
 }
 
 void	init_2(t_prog *p)

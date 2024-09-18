@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:30:39 by h                 #+#    #+#             */
-/*   Updated: 2024/09/18 15:07:13 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/18 17:44:56 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,9 +193,11 @@ void			square_complex(t_complex *zn);
 void			add_complex(t_complex *zn, t_complex c);
 void			change_color(int keycode, t_prog *p);
 void			check_args(int ac, char **av);
+void			check_c(t_prog *p, int ac, char **av);
 void			check_fractal(t_prog *p, int ac, char **av);
 void			doi(t_prog *p);
 void			get_c(t_prog *p, int ac, char **av);
 void			reset_fractal(t_prog *p);
 void			change_or_reset_fractal(int keycode, t_prog *p);
+void			exit_prog(t_prog *p, char *reason, int status);
 #endif
