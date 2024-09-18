@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:30:39 by h                 #+#    #+#             */
-/*   Updated: 2024/09/18 14:45:02 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/18 15:07:13 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ But remmember Mandelbrot set starts at (Z(n))^2 = 0
 #  define ZOOMIN 4
 #  define ZOOMOUT 5
 #  define R 114
+#  define M 109
+#  define B 98
+#  define T 116
 #  define ONE 49
 #  define TWO 50
 #  define THREE 51
@@ -60,23 +63,7 @@ But remmember Mandelbrot set starts at (Z(n))^2 = 0
 # ifdef APPLE
 #  include "minilibx/mlx.h"
 #  define ESC 27
-#  define LEFT 37	int	ipp;
-
-	init_complex(&p->zn, getx(p), gety(p));
-	ipp = 0;
-	while (ipp < p->cycles)
-	{
-		square_complex(&p->zn);
-		add_complex(&p->zn, p->c);
-		if (has_escaped(&p->zn))
-			break ;
-		ipp++;
-	}
-	if (ipp == p->cycles)
-		p->fc = p->fpc;
-	else
-		p->fc = p->fpc + (ipp * p->fsc);
-	doi(p);
+#  define LEFT 37
 #  define UP 38
 #  define RIGHT 39
 #  define DOWN 40
@@ -210,4 +197,5 @@ void			check_fractal(t_prog *p, int ac, char **av);
 void			doi(t_prog *p);
 void			get_c(t_prog *p, int ac, char **av);
 void			reset_fractal(t_prog *p);
+void			change_or_reset_fractal(int keycode, t_prog *p);
 #endif

@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:45:52 by h                 #+#    #+#             */
-/*   Updated: 2024/09/18 14:41:38 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/18 16:13:13 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	burningship(t_prog *p)
 
 	x = getx(p);
 	y = gety(p);
+	init_complex(&p->c, 0, 0);
 	init_complex(&p->zn, x, y);
 	ipp = 0;
 	while (ipp < p->cycles)

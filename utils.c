@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 11:44:28 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/18 14:50:59 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/18 15:05:42 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	key_hook(int keycode, void *param)
 	else if (keycode == ONE || keycode == TWO || keycode == THREE
 		|| keycode == FOUR || keycode == FIVE)
 		change_color(keycode, p);
-	else if (keycode == R)
-		reset_fractal(p);
+	else if (keycode == R || keycode == M || keycode == B || keycode == T)
+		change_or_reset_fractal(keycode, p);
 	fractal(p);
 	return (0);
 }
