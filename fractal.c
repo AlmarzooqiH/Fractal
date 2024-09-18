@@ -6,16 +6,11 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:45:52 by h                 #+#    #+#             */
-/*   Updated: 2024/09/17 23:59:14 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/18 14:41:38 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-int	has_escaped(t_complex *zn)
-{
-	return (zn->a * zn->a + zn->b * zn->b > 4);
-}
 
 /*
     @brief	This function will draw the mandelbrot fractal.
@@ -66,6 +61,56 @@ void	julia(t_prog *p)
 	doi(p);
 }
 
+void	burningship(t_prog *p)
+{
+	int		ipp;
+	double	x;
+	double	y;
+
+	x = getx(p);
+	y = gety(p);
+	init_complex(&p->zn, x, y);
+	ipp = 0;
+	while (ipp < p->cycles)
+	{
+		square_complex(&p->zn);
+		p->zn.a = fabs(p->zn.a) + x;
+		p->zn.b = fabs(p->zn.b) + y;
+		add_complex(&p->zn, p->c);
+		if (has_escaped(&p->zn))
+			break ;
+		ipp++;
+	}
+	if (ipp == p->cycles)
+		p->fc = p->fpc;
+	else
+		p->fc = p->fpc + (ipp * p->fsc);
+	doi(p);
+}
+
+void	tricon(t_prog *p)
+{
+	int	ipp;
+
+	init_complex(&p->c, getx(p), gety(p));
+	init_complex(&p->zn, 0, 0);
+	ipp = 0;
+	while (ipp < p->cycles)
+	{
+		square_complex(&p->zn);
+		p->zn.b = -p->zn.b;
+		add_complex(&p->zn, p->c);
+		if (has_escaped(&p->zn))
+			break ;
+		ipp++;
+	}
+	if (ipp == p->cycles)
+		p->fc = p->fpc;
+	else
+		p->fc = p->fpc + (ipp * p->fsc);
+	doi(p);
+}
+
 void	fractal(t_prog *p)
 {
 	p->y = 0;
@@ -78,6 +123,10 @@ void	fractal(t_prog *p)
 				mandelbrot(p);
 			else if (p->fractal == 'j')
 				julia(p);
+			else if (p->fractal == 'b')
+				burningship(p);
+			else if (p->fractal == 't')
+				tricon(p);
 			p->x++;
 		}
 		p->y++;

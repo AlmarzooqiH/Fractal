@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 22:45:01 by h                 #+#    #+#             */
-/*   Updated: 2024/09/15 23:05:59 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/18 14:39:07 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ void	square_complex(t_complex *zn)
 */
 void	add_complex(t_complex *zn, t_complex c)
 {
-	zn->b += c.b;
 	zn->a += c.a;
+	zn->b += c.b;
 }

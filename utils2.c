@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:08:59 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/17 23:58:20 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/18 14:45:19 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,13 @@ void	check_fractal(t_prog *p, int ac, char **av)
 		p->fractal = 'm';
 	else if (ft_strcmp(av[1], JULIA))
 		p->fractal = 'j';
+	else if (ft_strcmp(av[1], BURINGSHIP))
+		p->fractal = 'b';
+	else if (ft_strcmp(av[1], TRICON))
+		p->fractal = 't';
 	else
 	{
-		ft_printf("%s", WRONG_FRACTALS);
+		ft_printf("%s%s", WRONG_FRACTALS1, WRONG_FRACTALS2);
 		mlx_destroy_image(p->mlx, p->img);
 		mlx_destroy_window(p->mlx, p->win);
 		exit(1);

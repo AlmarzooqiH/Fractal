@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 11:44:28 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/17 23:56:30 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/18 14:50:59 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 void	check_args(int ac, char **av)
 {
-	// if (ac == 1 || ac > 4 || !av || av[1][0] == '\0')
-	// {
-	// 	ft_printf("%s", INPUT_ERROR);
-	// 	exit(1);
-	// }
-	//Finish parsing later.
+	if (ac == 1 || ac > 4 || !av || av[1][0] == '\0')
+	{
+		ft_printf("%s", INPUT_ERROR);
+		exit(1);
+	}
 }
 
 int	key_hook(int keycode, void *param)

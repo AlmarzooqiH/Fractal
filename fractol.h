@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:30:39 by h                 #+#    #+#             */
-/*   Updated: 2024/09/17 23:52:10 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/18 14:45:02 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,23 @@ But remmember Mandelbrot set starts at (Z(n))^2 = 0
 # ifdef APPLE
 #  include "minilibx/mlx.h"
 #  define ESC 27
-#  define LEFT 37
+#  define LEFT 37	int	ipp;
+
+	init_complex(&p->zn, getx(p), gety(p));
+	ipp = 0;
+	while (ipp < p->cycles)
+	{
+		square_complex(&p->zn);
+		add_complex(&p->zn, p->c);
+		if (has_escaped(&p->zn))
+			break ;
+		ipp++;
+	}
+	if (ipp == p->cycles)
+		p->fc = p->fpc;
+	else
+		p->fc = p->fpc + (ipp * p->fsc);
+	doi(p);
 #  define UP 38
 #  define RIGHT 39
 #  define DOWN 40
@@ -70,8 +86,10 @@ But remmember Mandelbrot set starts at (Z(n))^2 = 0
 
 //Macros
 # define FRACTOL "Fractol\0"
-# define MANDELBROT "mandelbrot"
+# define MANDELBROT "mandelbrot\0"
 # define JULIA "julia\0"
+# define BURINGSHIP "burningship\0"
+# define TRICON "tricon\0"
 # define WIDTH 800
 # define HEIGHT 800
 # define RPX 2
@@ -91,7 +109,8 @@ But remmember Mandelbrot set starts at (Z(n))^2 = 0
 //Error Macros
 # define INPUT_ERROR "Input Error\n\0"
 # define SOMETHING_WENT_WRONG "Something went wrong\n\0"
-# define WRONG_FRACTALS "Wrong fractal name chose\nMandelbrot, julia\n\0"
+# define WRONG_FRACTALS1 "Wrong fractal name chose\n\0"
+# define WRONG_FRACTALS2 "mandelbrot, julia, burningship, tricon\n\0"
 # define JULIA_WRONG_FORMAT "Wrong formatting of the julia set\n\0"
 
 //Structs
@@ -172,15 +191,16 @@ typedef struct s_prog
 int				close_program(void *param);
 int				key_hook(int keycode, void *param);
 int				mouse_hook(int button, int x, int y, void *param);
-void			init(t_prog *p);
-void			init_2(t_prog *p);
 int				has_escaped(t_complex *zn);
 double			getx(t_prog *p);
 double			gety(t_prog *p);
+void			init(t_prog *p);
+void			init_2(t_prog *p);
 void			hook(t_prog *p);
+void			fractal(t_prog *p);
 void			mandelbrot(t_prog *p);
 void			julia(t_prog *p);
-void			fractal(t_prog *p);
+void			burningship(t_prog *p);
 void			init_complex(t_complex *p, double a, double bi);
 void			square_complex(t_complex *zn);
 void			add_complex(t_complex *zn, t_complex c);
