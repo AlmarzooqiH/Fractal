@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 15:19:29 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/19 22:13:16 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/19 22:33:06 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	check_real(t_prog *p, int ac, char **av)
 {
 	size_t	i;
-
 
 	if (ft_isonlyspace(av[2]))
 		exit_prog(p, JULIA_WRONG_FORMAT, 1);
