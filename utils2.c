@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:08:59 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/18 14:45:19 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/18 19:11:21 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	change_color(int keycode, t_prog *p)
 	}
 	else if (keycode == TWO)
 	{
-		p->fpc = BLACK;
-		p->fsc = WHITE;
+		p->fpc = LIGHT_SALMON;
+		p->fsc = LIGHT_CORAL;
 	}
 	else if (keycode == THREE)
 	{

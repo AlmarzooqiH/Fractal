@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:45:52 by h                 #+#    #+#             */
-/*   Updated: 2024/09/18 16:13:13 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/18 21:00:12 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	burningship(t_prog *p)
 	while (ipp < p->cycles)
 	{
 		square_complex(&p->zn);
-		p->zn.a = fabs(p->zn.a) + x;
+		p->zn.a += x;
 		p->zn.b = fabs(p->zn.b) + y;
 		add_complex(&p->zn, p->c);
 		if (has_escaped(&p->zn))

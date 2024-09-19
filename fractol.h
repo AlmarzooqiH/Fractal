@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:30:39 by h                 #+#    #+#             */
-/*   Updated: 2024/09/18 17:44:56 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/19 09:38:58 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ But remmember Mandelbrot set starts at (Z(n))^2 = 0
 # define DARK_ORANGE 0xFF8C00
 # define LIGHT_SKY_BLUE 0x87CEFA
 # define CRIMSON 0xDC143C
+# define LIGHT_CORAL 0xF08080
+# define LIGHT_SALMON 0xFFA07A
+
 //Error Macros
 # define INPUT_ERROR "Input Error\n\0"
 # define SOMETHING_WENT_WRONG "Something went wrong\n\0"
