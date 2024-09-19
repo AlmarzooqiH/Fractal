@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 23:50:11 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/19 16:55:01 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/19 18:46:26 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 void	exit_prog(t_prog *p, char *reason, int status)
 {
+	ft_bzero((void *)p->imgd, ft_strlen(p->imgd));
 	if (p->win)
 		mlx_destroy_window(p->mlx, p->win);
-	if (p->imgd)
-		free(p->imgd);
 	if (p->img)
 		mlx_destroy_image(p->mlx, p->img);
 	if (!reason || reason == NULL)
