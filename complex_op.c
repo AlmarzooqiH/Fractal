@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 22:45:01 by h                 #+#    #+#             */
-/*   Updated: 2024/09/19 18:21:53 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/19 21:54:36 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	square_complex(t_complex *zn)
 	@param	zn	Complex number
 	@param	c	The constant complex number added in the mandelbrot equation.
 */
-void	add_complex(t_complex *zn, t_complex c)
+void	add_complex(t_complex *zn, t_complex *c)
 {
-	zn->a += c.a;
-	zn->b += c.b;
+	zn->a += c->a;
+	zn->b += c->b;
 }

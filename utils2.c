@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:08:59 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/19 18:22:16 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/19 22:09:06 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,7 @@ void	check_fractal(t_prog *p, int ac, char **av)
 	else if (ft_strcmp(av[1], TRICON))
 		p->fractal = 't';
 	else
-	{
-		ft_printf("%s%s", WRONG_FRACTALS1, WRONG_FRACTALS2);
-		mlx_destroy_image(p->mlx, p->img);
-		mlx_destroy_window(p->mlx, p->win);
-		exit(1);
-	}
+		exit_prog(p, WF, 1);
 }
 
 /*

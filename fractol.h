@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:30:39 by h                 #+#    #+#             */
-/*   Updated: 2024/09/19 18:23:35 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/19 22:23:18 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,10 @@ But remmember Mandelbrot set starts at (Z(n))^2 = 0
 # define IPY 2.5
 # define INY -2.5
 # define BLACK 0x000000
-# define WHITE 0xFFFFFF
 # define ROYALE_BLUE 0x4169E1
 # define LIGHT_PURPLE 0xD8BFD8
-# define LIME 0x00ed33
 # define DARK_GREEN  0x006400
 # define GOLD 0xFFD700
-# define DARK_ORANGE 0xFF8C00
-# define LIGHT_SKY_BLUE 0x87CEFA
 # define CRIMSON 0xDC143C
 # define LIGHT_CORAL 0xF08080
 # define LIGHT_SALMON 0xFFA07A
@@ -99,8 +95,7 @@ But remmember Mandelbrot set starts at (Z(n))^2 = 0
 //Error Macros
 # define INPUT_ERROR "Input Error\n\0"
 # define SOMETHING_WENT_WRONG "Something went wrong\n\0"
-# define WRONG_FRACTALS1 "Wrong fractal name chose\n\0"
-# define WRONG_FRACTALS2 "mandelbrot, julia, burningship, tricon\n\0"
+# define WF "Wrong fractal chose\nmandelbrot, julia, burningship, tricon\n\0"
 # define JULIA_WRONG_FORMAT "Wrong formatting of the julia set\n\0"
 
 //Structs
@@ -173,8 +168,8 @@ typedef struct s_prog
 	double		move_y;
 	double		range_x;
 	double		range_y;
-	t_complex	zn;
-	t_complex	c;
+	t_complex	*zn;
+	t_complex	*c;
 }	t_prog;
 
 //Function Prototypes
@@ -193,7 +188,7 @@ void			julia(t_prog *p);
 void			burningship(t_prog *p);
 void			init_complex(t_complex *p, double a, double bi);
 void			square_complex(t_complex *zn);
-void			add_complex(t_complex *zn, t_complex c);
+void			add_complex(t_complex *zn, t_complex *c);
 void			change_color(int keycode, t_prog *p);
 void			check_args(int ac, char **av);
 void			check_real(t_prog *p, int ac, char **av);

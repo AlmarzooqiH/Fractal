@@ -6,12 +6,11 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:45:52 by h                 #+#    #+#             */
-/*   Updated: 2024/09/19 18:23:03 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/19 22:27:17 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
 /*
     @brief	This function will draw the mandelbrot fractal.
 
@@ -22,14 +21,14 @@ void	mandelbrot(t_prog *p)
 {
 	int	ipp;
 
-	init_complex(&p->c, getx(p), gety(p));
-	init_complex(&p->zn, 0, 0);
+	init_complex(p->c, getx(p), gety(p));
+	init_complex(p->zn, 0, 0);
 	ipp = 0;
 	while (ipp < p->cycles)
 	{
-		square_complex(&p->zn);
-		add_complex(&p->zn, p->c);
-		if (has_escaped(&p->zn))
+		square_complex(p->zn);
+		add_complex(p->zn, p->c);
+		if (has_escaped(p->zn))
 			break ;
 		ipp++;
 	}
@@ -44,13 +43,13 @@ void	julia(t_prog *p)
 {
 	int	ipp;
 
-	init_complex(&p->zn, getx(p), gety(p));
+	init_complex(p->zn, getx(p), gety(p));
 	ipp = 0;
 	while (ipp < p->cycles)
 	{
-		square_complex(&p->zn);
-		add_complex(&p->zn, p->c);
-		if (has_escaped(&p->zn))
+		square_complex(p->zn);
+		add_complex(p->zn, p->c);
+		if (has_escaped(p->zn))
 			break ;
 		ipp++;
 	}
@@ -69,16 +68,16 @@ void	burningship(t_prog *p)
 
 	x = getx(p);
 	y = gety(p);
-	init_complex(&p->c, 0, 0);
-	init_complex(&p->zn, x, y);
+	init_complex(p->c, 0, 0);
+	init_complex(p->zn, x, y);
 	ipp = 0;
 	while (ipp < p->cycles)
 	{
-		square_complex(&p->zn);
-		p->zn.a += x;
-		p->zn.b = fabs(p->zn.b) + y;
-		add_complex(&p->zn, p->c);
-		if (has_escaped(&p->zn))
+		square_complex(p->zn);
+		p->zn->a += x;
+		p->zn->b = fabs(p->zn->b) + y;
+		add_complex(p->zn, p->c);
+		if (has_escaped(p->zn))
 			break ;
 		ipp++;
 	}
@@ -93,15 +92,15 @@ void	tricon(t_prog *p)
 {
 	int	ipp;
 
-	init_complex(&p->c, getx(p), gety(p));
-	init_complex(&p->zn, 0, 0);
+	init_complex(p->c, getx(p), gety(p));
+	init_complex(p->zn, 0, 0);
 	ipp = 0;
 	while (ipp < p->cycles)
 	{
-		square_complex(&p->zn);
-		p->zn.b = -p->zn.b;
-		add_complex(&p->zn, p->c);
-		if (has_escaped(&p->zn))
+		square_complex(p->zn);
+		p->zn->b = -p->zn->b;
+		add_complex(p->zn, p->c);
+		if (has_escaped(p->zn))
 			break ;
 		ipp++;
 	}
@@ -115,10 +114,10 @@ void	tricon(t_prog *p)
 void	fractal(t_prog *p)
 {
 	p->y = 0;
-	while (p->y != HEIGHT)
+	while (p->y < HEIGHT)
 	{
 		p->x = 0;
-		while (p->x != WIDTH)
+		while (p->x < WIDTH)
 		{
 			if (p->fractal == 'm')
 				mandelbrot(p);

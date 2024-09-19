@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 23:50:11 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/19 18:46:26 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/19 22:29:33 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,29 @@
 
 void	exit_prog(t_prog *p, char *reason, int status)
 {
-	ft_bzero((void *)p->imgd, ft_strlen(p->imgd));
-	if (p->win)
-		mlx_destroy_window(p->mlx, p->win);
 	if (p->img)
 		mlx_destroy_image(p->mlx, p->img);
-	if (!reason || reason == NULL)
-		exit(status);
-	ft_printf("%s", reason);
+	if (p->win)
+		mlx_destroy_window(p->mlx, p->win);
+	if (p->mlx)
+	{
+		mlx_loop_end(p->mlx);
+		mlx_destroy_display(p->mlx);
+		free(p->mlx);
+	}
+	if (p->c)
+		free(p->c);
+	if (p->zn)
+		free(p->zn);
+	if (reason)
+		ft_printf("%s", reason);
+	free(p);
 	exit(status);
 }
 
 void	reset_fractal(t_prog *p)
 {
 	p->cycles = 50;
-	p->fc = BLACK;
-	p->fpc = BLACK;
-	p->fsc = ROYALE_BLUE;
 	p->zoom = 1;
 	p->move_x = 0;
 	p->move_y = 0;

@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 15:19:29 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/19 18:22:57 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/19 22:13:16 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,39 +15,36 @@
 void	check_real(t_prog *p, int ac, char **av)
 {
 	size_t	i;
-	size_t	j;
 
-	i = 2;
-	if (ft_isonlyspace(av[i]))
+
+	if (ft_isonlyspace(av[2]))
 		exit_prog(p, JULIA_WRONG_FORMAT, 1);
-	j = ft_skipspace(av[i]);
-	while (av[i][j] != '\0')
+	i = ft_skipspace(av[2]);
+	while (av[2][i] != '\0')
 	{
-		if (av[i][j] == '.')
-			j++;
-		if (ft_isalpha(av[i][j]) || ft_isspace(av[i][j]))
+		if (av[2][i] == '.')
+			i++;
+		if (ft_isalpha(av[2][i]) || ft_isspace(av[2][i]))
 			exit_prog(p, JULIA_WRONG_FORMAT, 1);
-		j++;
+		i++;
 	}
 }
 
 void	check_imaginary(t_prog *p, int ac, char **av)
 {
 	size_t	i;
-	size_t	j;
 
-	i = 3;
-	if (ft_isonlyspace(av[i]))
+	if (ft_isonlyspace(av[3]))
 		exit_prog(p, JULIA_WRONG_FORMAT, 1);
-	j = ft_skipspace(av[i]);
-	while (av[i][j] != '\0')
+	i = ft_skipspace(av[3]);
+	while (av[3][i] != '\0')
 	{
-		if (av[i][j] == 'i')
+		if (av[3][i] == 'i' && av[3][i + 1] == '\0')
 			break ;
-		if (av[i][j] == '.')
-			j++;
-		if (ft_isalpha(av[i][j]) || ft_isspace(av[i][j]))
+		if (av[3][i] == '.')
+			i++;
+		if (ft_isalpha(av[3][i]) || ft_isspace(av[3][i]))
 			exit_prog(p, JULIA_WRONG_FORMAT, 1);
-		j++;
+		i++;
 	}
 }

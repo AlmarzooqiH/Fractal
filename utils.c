@@ -6,7 +6,7 @@
 /*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 11:44:28 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/19 18:22:09 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/19 22:24:45 by hamad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,21 @@ int	key_hook(int keycode, void *param)
 int	mouse_hook(int button, int x, int y, void *param)
 {
 	t_prog	*p;
-	double	mouse_re;
-	double	mouse_im;
+	double	mre;
+	double	mie;
 
 	p = (t_prog *)param;
-	mouse_re = p->zoom_x + (x - WIDTH / 2) * (p->range_x / (double)WIDTH)
+	mre = p->zoom_x + (x - WIDTH / 2) * (p->range_x / (double)WIDTH)
 		/ p->zoom;
-	mouse_im = p->zoom_y + (y - HEIGHT / 2) * (p->range_y / (double)HEIGHT)
+	mie = p->zoom_y + (y - HEIGHT / 2) * (p->range_y / (double)HEIGHT)
 		/ p->zoom;
 	if (button == ZOOMIN)
 		p->zoom *= 1.5;
 	else if (button == ZOOMOUT)
 		p->zoom /= 1.5;
-	p->zoom_x = mouse_re - (x - WIDTH / 2) * (p->range_x / (double)WIDTH)
+	p->zoom_x = mre - (x - WIDTH / 2) * (p->range_x / (double)WIDTH)
 		/ p->zoom;
-	p->zoom_y = mouse_im - (y - HEIGHT / 2) * (p->range_y / (double)HEIGHT)
+	p->zoom_y = mie - (y - HEIGHT / 2) * (p->range_y / (double)HEIGHT)
 		/ p->zoom;
 	fractal(p);
 }
@@ -80,16 +80,13 @@ void	hook(t_prog *p)
 
 void	get_c(t_prog *p, int ac, char **av)
 {
-	int	i;
-
 	if (ac == 4)
 	{
 		check_real(p, ac, av);
 		check_imaginary(p, ac, av);
-		i = 2;
-		p->c.a = ft_atod(av[i]);
-		p->c.b = ft_atod(av[i + 1]);
-		if (p->c.a < RNX || p->c.a > RPX || p->c.b < INY || p->c.b > IPY)
+		p->c->a = ft_atod(av[2]);
+		p->c->b = ft_atod(av[3]);
+		if (p->c->a < RNX || p->c->a > RPX || p->c->b < INY || p->c->b > IPY)
 			exit_prog(p, JULIA_WRONG_FORMAT, 1);
 	}
 	else
