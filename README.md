@@ -6,3 +6,7 @@ This program only works on Mac and Linux machines.
 
 # Prerequisite
 Make sure you have Minilibx installed on your machine before using it.
+
+# Installation
+For linux: sudo apt-get install gcc make xorg libxext-dev libbsd-dev
+for Macos: brew install Xquartz
