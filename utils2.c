@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hamalmar <hamalmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:08:59 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/19 22:09:06 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/21 12:58:16 by hamalmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,22 @@
 
 void	check_fractal(t_prog *p, int ac, char **av)
 {
-	if (ft_strcmp(av[1], MANDELBROT))
+	char	*fractal;
+
+	fractal = ft_substr(av[1], ft_skipspace(av[1]), ft_strlen(av[1]));
+	if (!fractal)
+		exit_prog(p, WF, 1);
+	if (ft_strcmp(fractal, MANDELBROT))
 		p->fractal = 'm';
-	else if (ft_strcmp(av[1], JULIA))
+	else if (ft_strcmp(fractal, JULIA))
 		p->fractal = 'j';
-	else if (ft_strcmp(av[1], BURINGSHIP))
+	else if (ft_strcmp(fractal, BURINGSHIP))
 		p->fractal = 'b';
-	else if (ft_strcmp(av[1], TRICON))
+	else if (ft_strcmp(fractal, TRICON))
 		p->fractal = 't';
 	else
 		exit_prog(p, WF, 1);
+	free(fractal);
 }
 
 /*

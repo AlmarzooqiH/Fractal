@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hamalmar <hamalmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 11:44:28 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/19 22:24:45 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/21 11:25:43 by hamalmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	check_args(int ac, char **av)
 {
 	if (ac == 1 || ac > 4 || !av || av[1][0] == '\0')
 	{
-		ft_printf("%s", INPUT_ERROR);
+		ft_printf("%s%s", INPUT_ERROR, CF);
 		exit(1);
 	}
 }
@@ -69,6 +69,7 @@ int	mouse_hook(int button, int x, int y, void *param)
 	p->zoom_y = mie - (y - HEIGHT / 2) * (p->range_y / (double)HEIGHT)
 		/ p->zoom;
 	fractal(p);
+	return (1);
 }
 
 void	hook(t_prog *p)

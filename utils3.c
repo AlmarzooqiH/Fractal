@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hamalmar <hamalmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 23:50:11 by hamad             #+#    #+#             */
-/*   Updated: 2024/09/19 22:29:33 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/21 12:46:34 by hamalmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,7 @@ void	exit_prog(t_prog *p, char *reason, int status)
 	if (p->win)
 		mlx_destroy_window(p->mlx, p->win);
 	if (p->mlx)
-	{
-		mlx_loop_end(p->mlx);
-		mlx_destroy_display(p->mlx);
 		free(p->mlx);
-	}
 	if (p->c)
 		free(p->c);
 	if (p->zn)
@@ -36,14 +32,30 @@ void	exit_prog(t_prog *p, char *reason, int status)
 
 void	reset_fractal(t_prog *p)
 {
-	p->cycles = 50;
-	p->zoom = 1;
-	p->move_x = 0;
-	p->move_y = 0;
-	p->zoom_x = 0;
-	p->zoom_y = 0;
+	if (p->fractal == 'j')
+	{
+		p->cycles = 50;
+		p->zoom = 1.0;
+		p->move_x = 0;
+		p->move_y = 0;
+		p->zoom_x = 0;
+		p->zoom_y = 0;
+		init_complex(p->zn, 0.0, 0.0);
+	}
+	else
+	{
+		p->cycles = 50;
+		p->zoom = 1.0;
+		p->move_x = 0;
+		p->move_y = 0;
+		p->zoom_x = 0;
+		p->zoom_y = 0;
+		init_complex(p->c, 0.0, 0.0);
+		init_complex(p->zn, 0.0, 0.0);
+	}
 }
 
+//This will check if the current point has have escaped to infinity.
 int	has_escaped(t_complex *zn)
 {
 	return (zn->a * zn->a + zn->b * zn->b > 4);

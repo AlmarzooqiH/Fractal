@@ -12,7 +12,7 @@ MINIMLX_A =
 
 ifeq ($(OS), Linux)
 	MINIMLX_A +=$(LINUX_MINIMLX_A)
-else ifeq ($(OS), DARWIN)
+else ifeq ($(OS), Darwin)
 	MINIMLX_A +=$(MACOS_MINIMLX_A)
 endif
 all: libft libmlx mandatory
@@ -39,16 +39,16 @@ libft_re:
 libmlx:
  ifeq ($(OS), Linux)
 	cd minilibx-linux ; make
- else ifeq ($(OS), DARWIN)
+ else ifeq ($(OS), Darwin)
 	cd minilibx ; make
  endif
 libmlx_clean:
  ifeq ($(OS), Linux)
 	cd minilibx-linux ; make clean
- else ifeq ($(OS), DARWIN)
+ else ifeq ($(OS), Darwin)
 	cd minilibx ; make clean
  endif
-clean: libft_clean
+clean: libft_clean libmlx_clean
 	rm -rf *.o *.out *.gch .vscode
 
 fclean: clean libft_fclean

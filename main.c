@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hamalmar <hamalmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:30:15 by h                 #+#    #+#             */
-/*   Updated: 2024/09/19 22:03:56 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/21 11:44:49 by hamalmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	close_program(void *param)
 
 	p = (t_prog *) param;
 	exit_prog(p, NULL, 0);
+	return (1);
 }
 
 void	init_2(t_prog *p)
@@ -28,7 +29,9 @@ void	init_2(t_prog *p)
 	p->fsc = ROYALE_BLUE;
 	p->x = 0;
 	p->y = 0;
-	p->zoom = 1;
+	p->zoom = 1.0;
+	p->zoom_x = 0;
+	p->zoom_y = 0;
 	p->move_x = 0;
 	p->move_y = 0;
 	p->range_x = 0.0 + (RPX - RNX);

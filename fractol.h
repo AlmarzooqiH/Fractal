@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hamalmar <hamalmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:30:39 by h                 #+#    #+#             */
-/*   Updated: 2024/09/19 22:23:18 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/21 12:58:39 by hamalmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,26 @@ But remmember Mandelbrot set starts at (Z(n))^2 = 0
 #  define FOUR 52
 #  define FIVE 53
 # endif
-# ifdef APPLE
+# ifdef __APPLE__
 #  include "minilibx/mlx.h"
-#  define ESC 27
-#  define LEFT 37
-#  define UP 38
-#  define RIGHT 39
-#  define DOWN 40
-#  define MINUS 189
-#  define PLUS 187
+#  define ESC 53
+#  define LEFT 123
+#  define UP 126
+#  define RIGHT 124
+#  define DOWN 125
+#  define MINUS 27
+#  define PLUS 24
+#  define ZOOMIN 5
+#  define ZOOMOUT 4
+#  define R 15
+#  define M 46
+#  define B 11
+#  define T 17
+#  define ONE 18
+#  define TWO 19
+#  define THREE 20
+#  define FOUR 21
+#  define FIVE 23
 # endif
 
 //Macros
@@ -97,7 +108,7 @@ But remmember Mandelbrot set starts at (Z(n))^2 = 0
 # define SOMETHING_WENT_WRONG "Something went wrong\n\0"
 # define WF "Wrong fractal chose\nmandelbrot, julia, burningship, tricon\n\0"
 # define JULIA_WRONG_FORMAT "Wrong formatting of the julia set\n\0"
-
+# define CF "Chose a fractal\nmandelbrot, julia, burningship, tricon\n\0"
 //Structs
 /*
 	@brief		This struct represents a complex number.

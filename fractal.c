@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractal.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamad <hamad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hamalmar <hamalmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:45:52 by h                 #+#    #+#             */
-/*   Updated: 2024/09/19 22:27:17 by hamad            ###   ########.fr       */
+/*   Updated: 2024/09/21 11:31:54 by hamalmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	julia(t_prog *p)
 {
 	int	ipp;
 
-	init_complex(p->zn, getx(p), gety(p));
 	ipp = 0;
+	init_complex(p->zn, getx(p), gety(p));
 	while (ipp < p->cycles)
 	{
 		square_complex(p->zn);
