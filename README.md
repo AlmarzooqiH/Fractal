@@ -8,8 +8,10 @@ This program only works on Mac and Linux machines.
 Make sure you have Minilibx installed on your machine before using it.
 
 # Installation
-- For linux: sudo apt-get install gcc make xorg libxext-dev libbsd-dev
-- for Macos: brew install Xquartz
+- Linux:
+-  ```sudo apt-get install gcc make xorg libxext-dev libbsd-dev```
+- Macos:
+- ```brew install Xquartz```
 
 # Compiling
   - In the terminal use make
