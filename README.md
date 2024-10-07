@@ -8,5 +8,20 @@ This program only works on Mac and Linux machines.
 Make sure you have Minilibx installed on your machine before using it.
 
 # Installation
-For linux: sudo apt-get install gcc make xorg libxext-dev libbsd-dev
-for Macos: brew install Xquartz
+- For linux: sudo apt-get install gcc make xorg libxext-dev libbsd-dev
+- for Macos: brew install Xquartz
+
+# Compiling
+  - In the terminal use make
+# How to start the program
+  - ./fractol [fractal_name]
+  - Available fractals: mandelbrot, burningship, tricon and julia (Real number between -2.0 to 2.0) (Imaginary number between -2.5 to 2.5)
+  
+# Controls
+  - R: Reset
+  - M: Will switch to Mandelbrot fractal
+  - B: Will switch to Burningship fractal
+  - T: Will switch to Tricon fractal
+  - -: Will reduce the iteration per pixels by a factor of 10; p->ipp -=10;
+  - +: Will increase the iteration per pixels by a factor of 10; p->ipp +=10;
+  - 1-5: Will change the colors of the fractals.
