@@ -15,7 +15,11 @@ Make sure you have Minilibx installed on your machine before using it.
   - In the terminal use make
 # How to start the program
   - ./fractol [fractal_name]
-  - Available fractals: mandelbrot, burningship, tricon and julia (Real number between -2.0 to 2.0) (Imaginary number between -2.5 to 2.5)
+  - Available fractals
+    - mandelbrot
+    - burningship
+    - tricon
+    - julia (Real number between -2.0 to 2.0) (Imaginary number between -2.5 to 2.5)
   
 # Controls
   - R: Reset
