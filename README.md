@@ -25,6 +25,7 @@ Make sure you have Minilibx installed on your machine before using it.
   
 # Controls
   - R: Reset
+  - ESC: Exits the program
   - M: Will switch to Mandelbrot fractal
   - B: Will switch to Burningship fractal
   - T: Will switch to Tricon fractal
