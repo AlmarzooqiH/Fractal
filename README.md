@@ -1,6 +1,6 @@
 # Fractal
 ## - This project is about computer graphics where i implemented mandelbrot fractal and julia fractal and some more fractals.
-!()
+!(https://github.com/AlmarzooqiH/Fractal/blob/main/Screenshot%20from%202024-10-07%2022-21-04.png)
 # Disclaimer
 This program only works on Mac and Linux machines.
 
