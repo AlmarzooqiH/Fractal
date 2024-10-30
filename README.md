@@ -12,6 +12,8 @@ Make sure you have Minilibx installed on your machine before using it.
 -  ```sudo apt-get install gcc make xorg libxext-dev libbsd-dev```
 - Macos:
 - ```brew install Xquartz```
+- Doxygen (Optional)
+- https://www.doxygen.nl/download.html
 
 # Compiling
   - In the terminal use make
