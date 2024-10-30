@@ -32,3 +32,6 @@ Make sure you have Minilibx installed on your machine before using it.
   - -: Will reduce the iteration per pixels by a factor of 10; p->ipp -=10;
   - +: Will increase the iteration per pixels by a factor of 10; p->ipp +=10;
   - 1-5: Will change the colors of the fractals.
+
+# Optional
+  -You can use ``doxygen test`` to generate a documentation webpage where you will be able to see how to function are related, which function call which. It will help you visualize the workflow of this project.
